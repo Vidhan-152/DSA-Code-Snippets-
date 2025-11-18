@@ -9,8 +9,10 @@ Author :
 ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝  STARMAN248
 */
 
+
 #include <stdio.h>
 #include <stdlib.h>
+
 int adj[10][10]; // assuming max 10 nodes.
 int n;
 // Initializing the Adjacency Matrix :o
@@ -39,8 +41,10 @@ void displayGraph(){
 struct Node{
     int vertex; // means the position number
     struct Node* next;
-}
-struct Node* adjlist[10]; // Adjancency List
+}Node;
+
+struct Node* adjList[10]; // Adjancency List
+
 // Adding Edges in the List
 void addEdgeList(int u,int v,int directed){
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
@@ -51,7 +55,7 @@ void addEdgeList(int u,int v,int directed){
     if(!directed){
         newNode = (struct Node*)malloc(sizeof(struct Node));
         newNode->vertex = u;
-        newNode->next = adjlist[v];
+        newNode->next = adjList[v];
         adjList[v] = newNode;
     }
 }
@@ -141,7 +145,7 @@ int cycleDirectGraphHelperFunc(int u, int visited[], int recStack[]){
 }
 int cycleDirected(){
     int visited[10] = {0}, recStack[10] = {0};
-    for(int i=0;i<n;i++){a
+    for(int i=0;i<n;i++){
         if(!visited[i] && cycleDirectGraphHelperFunc(i,visited,recStack));
             return 1;
     }
@@ -178,10 +182,11 @@ void BFS(int start){
     int queue[10] , front = 0, rear = 0;
     visited[start] = 1;
     queue[rear++] = start;
+
     while(front < rear){
         int u = queue[front++];
         printf("%d ",u);
-        Node* temp = adjList[u];
+        struct Node* temp = adjList[u];
         while(temp!=NULL){
             int v = temp->vertex;
             if(!visited[v]){
@@ -198,7 +203,7 @@ void BFS(int start){
 void DFSHelperFunc(int u, int visited[]){
     visited[u] = 1;
     printf("%d ",u);
-    Node* temp = adjList[u];
+    struct Node* temp = adjList[u];
     while(temp!=NULL){
         int v = temp->vertex;
         if(!visited[v]){
@@ -229,7 +234,7 @@ int inDegree(int u){
     for(int v=0;v<n;v++){
         if(adj[v][u]) count++; // condition reversed here
     }
-    return 
+    return;
 }
 // Count total Edges -> if Undirected then divide by 2 . Directed = count Edges
 int countEdges(){
